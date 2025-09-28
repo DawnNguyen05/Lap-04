@@ -1,98 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Login Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .login-container {
-      background: white;
-      padding: 20px 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-      width: 300px;
-    }
-    .login-container h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .login-container input[type="text"],
-    .login-container input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .login-container .actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
-    .login-container button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .login-btn {
-      background: #4CAF50;
-      color: white;
-    }
-    .cancel-btn {
-      background: #f44336;
-      color: white;
-    }
-    .remember {
-      margin-top: 10px;
-    }
-  </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <div class="remember">
-        <input type="checkbox" id="remember"> Remember me
-      </div>
-      <div class="actions">
-        <button type="submit" class="login-btn">Login</button>
-        <button type="button" class="cancel-btn" onclick="resetForm()">Cancel</button>
-      </div>
-    </form>
-  </div>
+  <h2>Login Form</h2>
+
+  <form onsubmit="return checkLogin()">
+    <label>Username:</label><br>
+    <input type="text" id="username"><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" id="password"><br><br>
+
+    <input type="checkbox" id="remember"> Remember me <br><br>
+
+    <button type="submit">Login</button>
+    <button type="reset">Cancel</button>
+  </form>
 
   <script>
-    const form = document.getElementById('loginForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    function checkLogin() {
+      var user = document.getElementById("username").value;
+      var pass = document.getElementById("password").value;
 
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if (username === "" || password === "") {
+      if (user === "" || pass === "") {
         alert("Vui lòng nhập đầy đủ Username và Password!");
-        return;
+        return false; // không gửi form
       }
-      if (password.length < 6) {
+
+      if (pass.length < 6) {
         alert("Password phải có ít nhất 6 ký tự!");
-        return;
+        return false;
       }
 
-      alert("Đăng nhập thành công!\nUsername: " + username);
-    });
-
-    function resetForm() {
-      document.getElementById('loginForm').reset();
+      alert("Đăng nhập thành công!");
+      return true; // cho phép gửi form
     }
   </script>
 </body>
